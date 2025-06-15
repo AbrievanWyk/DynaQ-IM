@@ -17,7 +17,7 @@ const BaseForm = (function() {
     // Common display methods
     async function displayForm(itemId, mapper, loadDataCallback) {
         try {
-            formScope = angular.element(myCtrl).scope();
+            formScope = angular.element(incidentManagementCtrl).scope();
             initializeDatePickers();
             
             const formData = await loadDataCallback(itemId);

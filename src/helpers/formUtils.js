@@ -33,6 +33,28 @@ const FormUtils = (function () {
 
          // Extract and return the value
          return idParam.slice(valueStart, valueEnd);
+      },
+      redirectToURL() {
+         var gotoURL = "";
+         var params = location.search;
+         var pos = params.search("Source");
+         var sourceParam = params.slice(pos);
+
+         var secondPos = sourceParam.indexOf('&');
+         if (secondPos < 0) {
+            secondPos = sourceParam.length;
+         }
+         sourceParam = sourceParam.slice(sourceParam.indexOf("=") + 1, secondPos);
+
+         //var paramValue = secondparam.slice(secondparam.length - 1);
+         gotoURL = sourceParam;
+         gotoURL = decodeURIComponent(gotoURL);
+         //redirect to source
+         //alert("Success");
+         console.log("success paramValue: " + sourceParam);
+         window.location = gotoURL;
+
+         // $("#dvMessage").text("Operation Completed Successfully");
       }
    };
 })();

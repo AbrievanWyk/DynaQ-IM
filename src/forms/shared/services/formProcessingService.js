@@ -9,7 +9,7 @@ const FormProcessingService = (function () {
          ID: currentListItem.get_item('ID')
       };
 
-      var $scope = angular.element(myCtrl).scope();
+      var $scope = angular.element(incidentManagementCtrl).scope();
       $scope.incidentsDetailsForm = false;
       return formData;
    }

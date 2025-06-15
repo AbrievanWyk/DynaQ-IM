@@ -4,8 +4,7 @@ const FormInitializationService = (function () {
    function initializeMainLists() {
       SPListOperations.populateScopeList("Business Area");
       SPListOperations.populateScopeList("Area of Problem Departments");
-      SPListOperations.populateScopeList("HasThisHappenedBefore");
-      initializePeoplePicker('peoplePickerDiv', null);
+      // SPListOperations.populateScopeList("HasThisHappenedBefore");
    }
 
    function initializeDatePickers(datePickerIds) {
@@ -36,7 +35,7 @@ const FormInitializationService = (function () {
                   value: choice
                }));
 
-               var $scope = angular.element(myCtrl).scope();
+               var $scope = angular.element(incidentManagementCtrl).scope();
                $scope.$apply(function () {
                   $scope[scopePropertyName] = ScopelistOfObjects;
                });

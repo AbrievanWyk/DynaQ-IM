@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:mso="urn:schemas-microsoft-com:office:office"
+   xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+   <meta charset="utf-8" />
+   <title></title>
+
+   <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-31</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">610a9c6c-ddc5-426c-b039-a51276b866cd</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-31, ZP7AJ2WSTT3R-904016256-31</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+
+<body ng-controller="CustomerComplaintCtrl">
+   <div id="NewCustomerComplaint">
+      <table cellspacing="0" width="100%" class="table-striped">
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Customer Name<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selCustomerNames" name="selCustomerNames" ng-model="formModel.CustomerNameId"
+                  ng-options="item.id as item.value for item in CustomerNames track by item.id" required />
+
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.selCustomerNames.$touched && incidentManagementForm.selCustomerNames.$invalid">Customer
+                  Name is required.</span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Category</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selComplaintCategory" ng-model="formModel.CustomerComplaintCategory"
+                  ng-options="item.value as item.value for item in CustomerComplaintCategories track by item.id"
+                  name="selComplaintCategory" />
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Location<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true" title="CustomerLocation"
+                  ng-model="formModel.CustomerLocation" name="custLocation" required />
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.custLocation.$touched && incidentManagementForm.custLocation.$invalid">Location
+                  is required.</span>
+               <br />
+               <span class="ms-metadata">Where is customer located.</span>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Province</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select ng-model="formModel.ProvinceId"
+                  ng-options="item.id as item.value for item in ProvinceList track by item.id" />
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Store Outlet Retailer</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selStoreOutletRetailer" ng-model="formModel.StoreOutletRetailerId"
+                  ng-options="item.id as item.value for item in StoreOutletRetailerList track by item.id"
+                  name="selStoreOutletRetailer" />
+            </td>
+         </tr>
+
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Source of Complaint</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selSourceOfComplaint" ng-model="formModel.SourceofComplaintId"
+                  ng-options="item.id as item.value for item in SourceOfComplaintList track by item.id"
+                  name="selSourceOfComplaint" />
+            </td>
+         </tr>
+
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Contact Person<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true" title="Customer Contact Person"
+                  ng-model="formModel.CustomerContactPerson" name="contactPerson" required />
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.contactPerson.$touched && incidentManagementForm.contactPerson.$invalid">Contact
+                  Person is required.</span> <br />
+               <span class="ms-metadata">Person to be contacted at customer.</span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Customer Contact Telephone number<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true"
+                  ng-model="formModel.CustomerContactTelephone" name="contactTel" required />
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.contactTel.$touched && incidentManagementForm.contactTel.$invalid">Customer
+                  Contact Telephone number is required.</span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Customer Contact E-Mail<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true"
+                  ng-model="formModel.CustomerContactEmail" name="contactEmail" required />
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.contactEmail.$touched && incidentManagementForm.contactEmail.$invalid">Customer
+                  Contact E-Mail is required.</span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Is there a claim?<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select ng-model="formModel.IsCustomerClaim"
+                  ng-options="option.value as option.label for option in claimOptions" name="selIsCustomerClaim"
+                  id="selIsCustomerClaim" required>
+               </select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.isCustomerClaim.$touched && incidentManagementForm.isCustomerClaim.$invalid">Is
+                  there a claim is required.</span>
+            </td>
+         </tr>
+         <tr ng-show="formModel.IsCustomerClaim">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Claim Detail<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" class="ms-formbody">
+               <div id="myDiv">
+                  <textarea name="CustomerClaimDetailTextArea" id="CustomerClaimDetailTextArea" tinymce-editor 
+                     ng-model="formModel.CustomerClaimDetail"></textarea>
+               </div>
+               <span class="ms-metadata">Provide detail
+                  information about the claim.
+               </span>
+               <br />
+               <input id="getCustomerClaim" type="file" /><br />
+               <input id="addFileButton" type="button" value="Upload"
+                  onclick="SPFileOperations.uploadFile('CustomerClaimDetailTextArea', 'getCustomerClaim')" />
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Product or Service Complaint<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <select id="selProductOrServiceComplaint" ng-model="formModel.ComplaintTypeId"
+                     ng-change="updateComplaintClassification(formModel.ComplaintTypeId)"
+                     ng-options="item.id as item.value for item in ComplaintTypes track by item.id"
+                     name="selProductOrServiceComplaint" required>
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selProductOrServiceComplaint.$touched && incidentManagementForm.selProductOrServiceComplaint.$invalid">Product
+                     or Service Complaint is required.</span>
+               </span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Complaint Classification<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <!-- TODO: Check ProductCategoryId vs CustomerComplaintCategory -->
+                  <select id="selComplaintClassification" ng-model="formModel.CustomerComplaintServiceId"
+                     ng-options="item.id as item.value for item in ComplaintClassifications | filter:{parentId: formModel.ComplaintTypeId}"
+                     name="selComplaintClassification" required>
+                     <option value="0">(None)</option>
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selComplaintClassification.$touched && incidentManagementForm.selComplaintClassification.$invalid">Complaint
+                     Classification is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Complaint Product Category<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <!-- TODO: Check ProductCategoryId vs CustomerComplaintCategory -->
+                  <select id="selProductCategory" ng-model="formModel.ProductCategoryId"
+                     ng-change="updateComplaintProductName(formModel.ProductCategoryId)"
+                     ng-options="item.id as item.value for item in ComplaintProductCategories track by item.id"
+                     name="selProductCategory" required>
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selProductCategory.$touched && incidentManagementForm.selProductCategory.$invalid">Complaint
+                     Product Category is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Complaint Product Name<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <select id="selComplaintProductName" ng-model="formModel.ProductNameId"
+                     ng-options="item.id as item.value for item in ComplaintProductNames | filter:{parentId: formModel.ProductCategoryId}"
+                     name="selComplaintProductName" required>
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selComplaintProductName.$touched && incidentManagementForm.selComplaintProductName.$invalid">Complaint
+                     Product Name is required.</span>
+               </span>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Quantity</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="number" id="unitQuantity" name="unitQuantity" ng-model="formModel.UnitQuantity">
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Unit Type</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selUnitType" ng-model="formModel.UnitTypeId"
+                  ng-options="item.id as item.value for item in UnitTypeList track by item.id"
+                  name="selUnitType"></select>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Problem Date</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" id="datepicker" name="datepicker" ng-model="formModel.CustomerProblemDate"
+                  formatted-date-input>
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Production Date</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" id="productionDateDatepicker" name="productionDateDatepicker" formatted-date-input
+                  ng-model="formModel.ProductionDate">
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Best Before Date</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" id="bestBeforeDatepicker" name="bestBeforeDatepicker" formatted-date-input
+                  ng-model="formModel.BestBeforeDate">
+            </td>
+         </tr>
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Batch Number Filed</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true"
+                  ng-model="formModel.BatchNumberFiled" name="batchNumberFiled" required />
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.batchNumberFiled.$touched && incidentManagementForm.batchNumberFiled.$invalid">Batch
+                  Number Filed is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel" colspan="2">
+               <H3 class="ms-standardheader" style="font-weight:bold;">
+                  Business Manager and Customer Representative Notification Mails:
+               </H3>
+            </td>
+         </tr>
+         <tr>
+            <td>Add Customer Representative</td>
+            <td>
+
+               <!-- TODO: figure out how to map this: selRepresentativeNames -> $scope.ShowSelectedCustomerRepresentatives?.map(rep => rep.id) || []; -->
+               <select class="form-group-sm" id="selRepresentativeNames" name="selRepresentativeNames"
+                  ng-model="selRepresentativeNames"
+                  ng-options="item as item.value for item in CustomerRepresentatives track by item.id"
+                  ng-change="addRepresentative(selRepresentativeNames)">
+               </select>
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2">
+               <table class="table-bordered" style="width:100%;margin-top:10px;">
+                  <tbody>
+                     <tr ng-repeat="representative in CustomerRepresentativeList">
+                        <td style="padding:5px;">{{representative.value}}</td>
+                        <td style="padding:5px;">{{representative.area}}</td>
+                        <td style="padding:5px;">{{representative.email}}</td>
+                        <td style="padding:5px;"><a href="#" ng-click="removeRepresentative(representative)">X</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Business Manager(s) Notification</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <!-- <div id="businessManagerPeoplePicker"></div> -->
+               <people-picker picker-id="businessManagerPeoplePicker" 
+                  model="incidentManagementForm.BusinessManagers" sp-user-ids="formModel.BusinessManagersId" multiple="true">
+               </people-picker>
+            </td>
+         </tr>
+      </table>
+   </div>
+</body>
+
+</html>

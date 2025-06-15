@@ -1,0 +1,60 @@
+<span>
+   <table cellspacing="0" width="100%" class="table-striped table-dark">
+      <tr>
+         <td width="400px" valign="top" class="ms-formlabel">
+            <h3 class="ms-standardheader">
+               <nobr>Title<span class="ms-formvalidation"> *</span></nobr>
+            </h3>
+         </td>
+         <td width="70%" valign="top" class="ms-formbody">
+            <span dir="none">
+               <input type="text" maxlength="255" class="ms-long ms-spellcheck-true" ng-model="$ctrl.incidentTitle"
+                  title="Incident Name" name="incidentTitle" required />
+            </span>
+            <span class="ms-error" ng-show="$ctrl.form.incidentTitle.$touched && $ctrl.form.incidentTitle.$invalid">
+               Title is required.
+            </span>
+            <span class="ms-metadata">Short description of incident or action.</span>
+         </td>
+      </tr>
+
+      <tr>
+         <td width="30%" valign="top" class="ms-formlabel">
+            <h3 class="ms-standardheader">
+               <nobr>Business Area (where incident happened)<span class="ms-formvalidation"> *</span></nobr>
+            </h3>
+         </td>
+         <td width="70%" valign="top" class="ms-formbody">
+            <select id="selectedBusinessArea" ng-model="$ctrl.selectedBusinessArea" name="selectedBusinessArea"
+               ng-options="item.id as item.value for item in $ctrl.businessAreas track by item.id"
+               required>
+
+            </select>
+            <span class="ms-error"
+               ng-show="$ctrl.form.selectedBusinessArea.$touched && $ctrl.form.selectedBusinessArea.$invalid">
+               Business Area is required.
+            </span>
+         </td>
+      </tr>
+
+      <tr>
+         <td width="30%" valign="top" class="ms-formlabel">
+            <h3 class="ms-standardheader">
+               <nobr>Department/Area of Problem<span class="ms-formvalidation"> *</span></nobr>
+            </h3>
+         </td>
+         <td width="70%" valign="top" class="ms-formbody">
+            <select id="selectedProblemDepartmentArea" ng-model="$ctrl.selectedProblemDepartmentArea"
+               name="selectedProblemDepartmentArea"
+               ng-options="item.id as item.value for item in $ctrl.problemDepartmentAreas track by item.id"
+               required>
+            </select>
+            <span class="ms-error"
+               ng-show="$ctrl.form.selectedProblemDepartmentArea.$touched && $ctrl.form.selectedProblemDepartmentArea.$invalid">
+               Department/Area of Problem is required.
+            </span>
+         </td>
+      </tr>
+   </table>
+   <hr />
+</span>

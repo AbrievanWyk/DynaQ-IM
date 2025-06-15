@@ -8,7 +8,7 @@ const ResponseHandlerService = (function () {
          $('#saveLoaderImage').css("display", "block");
 
          if (!data) {
-            RedirectToURL();
+            FormUtils.redirectToURL();
             return;
          }
 
@@ -30,7 +30,7 @@ const ResponseHandlerService = (function () {
 
          await EmailService.getEmailItem("Incident Emails", mailTo, mailSubject, usrName, url, data.ID);
 
-         const $scope = angular.element(myCtrl).scope();
+         const $scope = angular.element(incidentManagementCtrl).scope();
 
          if ($scope.ARReason.toLowerCase() === "customer complaint" || $scope.ARReason.toLowerCase() === "complaint") {
             if ($scope.FormComplete) {
@@ -40,10 +40,10 @@ const ResponseHandlerService = (function () {
             }
          }
 
-         RedirectToURL();
+         FormUtils.redirectToURL();
       } catch (error) {
          console.error('Error in handleSuccess:', error);
-         RedirectToURL();
+         FormUtils.redirectToURL();
       }
    }
 
@@ -53,7 +53,7 @@ const ResponseHandlerService = (function () {
       // TODO: This needs to go to a better place
       $("#dvMessage").text("Save unsuccessful");
       // TODO: Uncomment this when we have a way to redirect to the URL
-      // RedirectToURL();
+      // FormUtils.redirectToURL();
    }
 
    return {

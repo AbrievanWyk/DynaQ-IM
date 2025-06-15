@@ -6,45 +6,103 @@ const CustomerComplaintForm = (function () {
 
    // Form Initialization
    function initializeForm() {
+      formScope = angular.element(incidentManagementCtrl).scope();
+      formScope.addRepresentative = addRepresentative;
+      formScope.removeRepresentative = removeRepresentative;
+
       FormInitializationService.initializeMainLists();
-      initializeCustomLists();
-      initializePeoplePickers();
-      initializeDatePickers();
+      initializeDropdownOptions();
+      CustomerComplaintService.populateCustomerRepresentativeList();
    }
 
-   function initializeCustomLists() {
-      const customLists = [
+   function initializeDropdownOptions() {
+      const dropdownLookupLists = [
          "Customers",
          "ComplaintType",
          "Product Categories",
          "Province List",
          "Store Outlet Retailer List",
          "Source of Complaint",
-         "Unit Type List"
+         "Unit Type List",
+         "Service Categories",
+         "Products"
       ];
 
-      customLists.forEach(list => SPListOperations.populateScopeList(list));
-      FormInitializationService.getListChoices("CustomerComplaintCategory", "CustomerComplaintCategories");
+      const lookupPromises = dropdownLookupLists.map(list => {
+         let parentIdColumnName = null;
+         if (list == "Service Categories") parentIdColumnName = "Complaint_x0020_Type";
+         if (list == "Products") parentIdColumnName = "Product_x0020_Category";
+         SPListOperations.getLookupColumnOptions(list, parentIdColumnName).then(options => {
+            formScope.$apply(() => {
+               const scopeProperty = LIST_TO_SCOPE_MAPPINGS[list];
+               if (scopeProperty) {
+                  formScope[scopeProperty] = options;
+               }
+            });
+         })
+      });
+
+      const choicePromise = SPListOperations.getChoiceColumnOptions("Incidents", "CustomerComplaintCategory")
+         .then(options => {
+            formScope.$apply(() => {
+               formScope.CustomerComplaintCategories = options;
+               formScope.claimOptions = [
+                  // { label: '', value: null },
+                  { label: 'Yes', value: true },
+                  { label: 'No', value: false }
+               ];
+            });
+         });
+
+      Promise.all([...lookupPromises, choicePromise])
+         .then(() => {
+            console.log("CustomerComplaintForm - All lists loaded.");
+            formScope.$apply(() => {
+               formScope.formReady = true;
+            });
+         })
+         .catch(err => {
+            console.error("Error loading lists:", err);
+         });
    }
 
-   function initializePeoplePickers() {
-      PeoplePickerHelper.initializePeoplePicker('businessManagerPeoplePicker', null);
-      CustomerComplaintService.populateCustomerRepresentativeList();
+   function addRepresentative(selectedRep) {
+      if (!selectedRep || !selectedRep.id) return;
+
+      if (!formScope.CustomerRepresentativeList) {
+         formScope.CustomerRepresentativeList = [];
+      }
+
+      const exists = formScope.CustomerRepresentativeList.some(rep => rep.id === selectedRep.id);
+      if (!exists) {
+         formScope.CustomerRepresentativeList.push(angular.copy(selectedRep));
+         syncCustomerRepresentativeIds();
+      }
+
+      formScope.selRepresentativeNames = null;
    }
 
-   function initializeDatePickers() {
-      FormInitializationService.initializeDatePickers([
-         'datepicker',
-         'productionDateDatepicker',
-         'bestBeforeDatepicker'
-      ]);
+   function removeRepresentative(repToRemove) {
+      if (!formScope.CustomerRepresentativeList) return;
+
+      formScope.CustomerRepresentativeList = formScope.CustomerRepresentativeList.filter(rep => rep.id !== repToRemove.id);
+      syncCustomerRepresentativeIds();
    }
+
+   function syncCustomerRepresentativeIds() {
+      if (!formScope.formModel) formScope.formModel = {};
+      formScope.formModel.CustomerRepresentativesId = formScope.CustomerRepresentativeList.map(rep => rep.id);
+   }
+
+
 
    // Form Display
    async function displayForm(itemId) {
       try {
-         formScope = angular.element(myCtrl).scope();
-         initializeDatePickers();
+         formScope = angular.element(incidentManagementCtrl).scope();
+         // initializeDatePickers();
+         formScope.addRepresentative = addRepresentative;
+         formScope.removeRepresentative = removeRepresentative;
 
          const formData = await loadFormData(itemId);
          formData.complaint.representatives = await updateRepresentativeDisplayFields(formData.complaint.representatives);
@@ -180,7 +238,7 @@ const CustomerComplaintForm = (function () {
 
       const filteredRepresentatives = representatives.filter(rep =>
          selectedRepresentatives.some(selected => selected.id === rep.id)
-     );
+      );
 
       return filteredRepresentatives;
    }
@@ -228,7 +286,7 @@ const CustomerComplaintForm = (function () {
    async function initializeDraftForm(itemId) {
       try {
          initializeForm();
-         formScope = angular.element(myCtrl).scope();
+         formScope = angular.element(incidentManagementCtrl).scope();
          await CustomerComplaintService.populateCustomerRepresentativeList();
 
          const formData = await loadFormData(itemId);

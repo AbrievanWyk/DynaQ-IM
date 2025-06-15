@@ -1,10 +1,12 @@
 'use strict';
 
 const CustomerComplaintService = (function () {
-   async function createCustomerComplaint($scope, $scopeCustomerComplaint) {
+   // async function createCustomerComplaint($scope, $scopeCustomerComplaint) {
+   async function createCustomerComplaint(formModel) {
       try {
-         const itemProperties = await CustomerComplaintMapper.mapViewToModel($scope, $scopeCustomerComplaint);
-         const result = await SPListOperations.addListItem('Incidents', itemProperties);
+         // const itemProperties = await CustomerComplaintMapper.mapViewToModel($scope, $scopeCustomerComplaint);
+         // const result = await SPListOperations.addListItem('Incidents', itemProperties);
+         const result = await SPListOperations.addListItem('Incidents', formModel);
          await ResponseHandlerService.handleSuccess(result);
          return result;
       } catch (error) {
@@ -50,7 +52,7 @@ const CustomerComplaintService = (function () {
                ScopelistOfObjects.push(singleObj);
             }
 
-            var $scope = angular.element(myCtrl).scope();
+            var $scope = angular.element(incidentManagementCtrl).scope();
             $scope.$apply(function () {
                $scope.CustomerRepresentatives = ScopelistOfObjects;
             });

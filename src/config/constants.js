@@ -1,3 +1,4 @@
+const srcFolderPath = '../../SiteAssets/IncidentManagement';
 // Constants for common SharePoint fields
 const SP_FIELDS = {
    // Common fields used across multiple queries
@@ -64,6 +65,8 @@ const LIST_TO_SCOPE_MAPPINGS = {
    "Store Outlet Retailer List": "StoreOutletRetailerList",
    "Source of Complaint": "SourceOfComplaintList",
    "Unit Type List": "UnitTypeList",
+   "Service Categories": "ComplaintClassifications",
+   "Products": "ComplaintProductNames",
 
    // Audit mappings
    "Audit Categories": "AuditCategories",
@@ -103,8 +106,8 @@ const LIST_TO_SCOPE_MAPPINGS = {
 
    // Main/Common mappings
    "Business Area": "BusinessAreas",
-   "Area of Problem Departments": "ProbDebtAreas",
-   "HasThisHappenedBefore": "HasThisHappendBeforeList",
+   "Area of Problem Departments": "ProblemDepartmentAreas",
+   "HasThisHappenedBefore": "HasThisHappenedBeforeList",
    "Root Cause Categories": "RootCauseCategories",
    "Action Required List": "ActionsRequired"
 };

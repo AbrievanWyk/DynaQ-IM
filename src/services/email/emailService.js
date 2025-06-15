@@ -27,11 +27,11 @@ function sendEmail(from, to, body, subject) {
       },
       success: function (data) {
          console.log('Email Sent Successfully');
-         RedirectToURL();
+         FormUtils.redirectToURL();
       },
       error: function (err) {
          console.log('Error in sending Email: ' + JSON.stringify(err));
-         RedirectToURL();
+         FormUtils.redirectToURL();
       }
    });
 }
@@ -69,7 +69,7 @@ function failGetEmailItem(sender, args) {
 }
 
 function sendCustomerComplainSubmitEmail(itemId) {
-   var $scopeGetID = angular.element(myCtrl).scope();
+   var $scopeGetID = angular.element(incidentManagementCtrl).scope();
    var list = website.get_lists().getByTitle("Incidents");
    var query = new SP.CamlQuery();
    query.set_viewXml("<View><Query><Where><Eq><FieldRef Name='ID' /><Value Type='Counter'>" + itemId + "</Value></Eq></Where></Query><ViewFields>" +
@@ -143,7 +143,7 @@ function sendCustomerComplainSubmitEmail(itemId) {
 }
 
 function sendCustomerComplaintCompleteEmail(itemId) {
-   var $scopeGetID = angular.element(myCtrl).scope();
+   var $scopeGetID = angular.element(incidentManagementCtrl).scope();
    var list = website.get_lists().getByTitle("Incidents");
    var query = new SP.CamlQuery();
    query.set_viewXml("<View><Query><Where><Eq><FieldRef Name='ID' /><Value Type='Counter'>" + itemId + "</Value></Eq></Where></Query><ViewFields>" +

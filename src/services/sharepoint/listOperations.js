@@ -53,6 +53,89 @@ const SPListOperations = (function () {
       }
    }
 
+   async function getChoiceColumnOptions(listTitle, fieldName) {
+      if (!listTitle || !fieldName) {
+         console.warn("listOperations.js > getChoiceColumnOptions: Missing listTitle or fieldName");
+         return [];
+      }
+
+      try {
+         const list = website.get_lists().getByTitle(listTitle);
+         const choiceField = clientContext.castTo(
+            list.get_fields().getByInternalNameOrTitle(fieldName),
+            SP.FieldChoice
+         );
+
+         clientContext.load(choiceField);
+
+         return await new Promise((resolve, reject) => {
+            clientContext.executeQueryAsync(
+               () => {
+                  const choices = choiceField.get_choices();
+                  const listOfOptions = choices.map((choice, index) => ({
+                     id: index,
+                     value: choice
+                  }));
+                  resolve(listOfOptions);
+               },
+               (sender, args) => {
+                  console.error(`listOperations.js > getChoiceColumnOptions: Error getting list choices: ${args.get_message()}`);
+                  resolve([]); // resolve with empty array on failure
+               }
+            );
+         });
+      } catch (err) {
+         console.error("listOperations.js > getChoiceColumnOptions: Exception caught:", err);
+         return [];
+      }
+   }
+
+   // TODO: Currently this is only retrieving the id and title. What happens if there are other fields you might want to return?
+   async function getLookupColumnOptions(listTitle, parentIdColumnName = null) {
+      if (!listTitle) {
+         console.warn("listOperations.js > getLookupColumnOptions: Missing listTitle");
+         return [];
+      }
+
+      try {
+         const list = website.get_lists().getByTitle(listTitle);
+         const query = new SP.CamlQuery();
+         const items = list.getItems(query);
+
+         clientContext.load(list);
+         clientContext.load(items);
+
+         return await new Promise((resolve, reject) => {
+            clientContext.executeQueryAsync(
+               () => {
+                  const listOfOptions = [];
+                  const enumerator = items.getEnumerator();
+
+                  while (enumerator.moveNext()) {
+                     const currentListItem = enumerator.get_current();
+                     listOfOptions.push({
+                        id: currentListItem.get_item('ID'),
+                        value: currentListItem.get_item('Title'),
+                        parentId: parentIdColumnName ? currentListItem.get_item(parentIdColumnName).get_lookupId() : null,
+                        isChecked: false
+                     });
+                  }
+
+                  resolve(listOfOptions);
+               },
+               (sender, args) => {
+                  console.error('listOperations.js > getLookupColumnOptions: Error retrieving lookup options:', args.get_message());
+                  resolve([]); // resolve with empty array on failure
+               }
+            );
+         });
+      } catch (err) {
+         console.error("listOperations.js > getLookupColumnOptions: Exception caught:", err);
+         return [];
+      }
+   }
+
+
    function populateScopeList(ListTitle) {
       var dfrd = $.Deferred();
       var list = website.get_lists().getByTitle(ListTitle);
@@ -76,7 +159,7 @@ const SPListOperations = (function () {
                ScopelistOfObjects.push(singleObj);
             }
 
-            var $scope = angular.element(myCtrl).scope();
+            var $scope = angular.element(incidentManagementCtrl).scope();
             $scope.$apply(function () {
                mapListToScope(ListTitle, ScopelistOfObjects, $scope);
             });
@@ -159,7 +242,9 @@ const SPListOperations = (function () {
       updateListItem,
       populateScopeList,
       executeQuery,
-      executeFunc
+      getChoiceColumnOptions,
+      getLookupColumnOptions
+      // executeFunc
       // executeQueryWrapper
    };
 })();
