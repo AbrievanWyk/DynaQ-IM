@@ -1,0 +1,61 @@
+<fieldset id="Managerform" class="container">
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         <label>QUALITY APPROVAL</label>
+      </div>
+      <div class="panel-body">
+         <table class="table-striped" width="100%">
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Quality Approval Comments</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable">
+                  <textarea name="QualityCommentsTextArea" class=QualityCommentsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.QualityComments" ></textarea>
+                     <br />
+                  <file-list-section id="qaFiles" request-id="qaFiles" mode="edit"></file-list-section>
+                     <!-- <input id="getFileApprovalComments" type="file" /><br />
+                     <input name="addFileButton" type="button" value="Upload"
+                        onclick="uploadImageOrFile('QualityCommentsTextArea', 'getFileApprovalComments')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable">
+                  <textarea name="QualityCommentsTextArea" class="QualityCommentsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.QualityComments" disabled></textarea>
+                  <file-list-section id="qaFiles" request-id="qaFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr ng-if="!$ctrl.editable">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Quality Manager </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <label>{{$ctrl.formModel.QualityManager.Title}}</label>
+               </td>
+            </tr>
+            <tr ng-if="!$ctrl.editable && $ctrl.dateActionedText">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Date: </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <label>{{ $ctrl.dateActionedText }}</label>
+               </td>
+            </tr>
+         </table>
+         <workflow-action-selector ng-if="$ctrl.editable" action-label="Quality Approval" assignee-label="Assigned to"
+            assignee-people-picker-prefix="qa" actions="$ctrl.nextStepOptions"
+            selected-action="$ctrl.selectedAction" assignee-id="$ctrl.formModel.AssignedToId"
+            assignee="$ctrl.complexTypesModel.AssignedTo" required="true"
+            on-change="$ctrl.onNextActionChange(action, assignee)" disabled="!$ctrl.editable"
+            on-save-stage-form="$ctrl.saveStageForm(continueToNextStage)">
+         </workflow-action-selector>
+      </div>
+   </div>
+</fieldset><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-911</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">2982d579-7583-4ec4-adb8-56d5ff64f6c9</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-911, ZP7AJ2WSTT3R-904016256-911</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

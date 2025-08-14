@@ -1,0 +1,124 @@
+﻿<style>
+   #MSOZoneCell_WebPartWPQ4 {
+      display: none;
+   }
+
+   #saveLoaderImage {
+      display: none;
+   }
+
+   div#incidentManagementCtrl .ms-formlabel {
+      /* color: #ccc !important; */
+   }
+
+   #s4-bodyContainer {
+      /* background-color: rgba(72, 70, 68, 0.8) !important; */
+   }
+</style>
+
+<!-- Add your CSS styles to the following file -->
+<link rel="Stylesheet" type="text/css"
+   href="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/CSS/stylesheet.css" />
+<link rel="Stylesheet" type="text/css"
+   href="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/CSS/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+   href="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/CSS/jquery-ui.css" />
+<link rel="stylesheet" type="text/css"
+   href="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/styles/global-loader.css" />
+
+<script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/tinymce/tinymce.min.js"></script>
+
+<!-- Helpers -->
+<!-- <script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/helpers/context.js?v=41"></script> -->
+
+<!-- Constants -->
+<script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/constants/constants.js?v=45"></script>
+<script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/constants/workflow.constants.js?v=45"></script>
+
+<script type="text/javascript"
+   data-main="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/main-require-config.js"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/scripts/require.js"></script>
+
+<!-- <script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/constants/shared.constants.js?v=45"></script> -->
+
+<!-- Services -->
+<script type="text/javascript"
+   src="https://dynaq.sharepoint.com/TeamSite/im/SiteAssets/IncidentManagement/js/new/services/sharepoint/utils.js?v=41"></script>
+
+
+<div id="incidentManagementRoot" ng-controller="MainController">
+   <div class="global-loader-backdrop" ng-hide="globalLoaderVisible === undefined || !globalLoaderVisible">
+      <div class="global-loader-spinner">
+         <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading..." />
+      </div>
+   </div>
+   <ng-form name="incidentManagementForm">
+
+      <div id="incidentManagementCtrl">
+         <br />
+         <!-- <p id="message">initializing...</p> -->
+         <span ng-repeat="form in forms" id="SelectButtonsSpan" ng-show="!selectedItemId">
+            <input type="button" title="form.id" ng-value="form.label" ng-click="selectForm(form)"
+               ng-class="{'buttonselected': form.selected, 'buttonNotSelected': !form.selected}" />
+            &nbsp;&nbsp;
+         </span>
+         <br />
+         <br />
+         <!-- <input type="button" title="Render" ng-value="Render" ng-click="renderForm(57)" /> -->
+         <div id="mainBody" ng-include="selectedForm[displayMode + 'Url']" onload="selectForm(selectedForm);"
+            ng-if="true">
+         </div>
+
+         <workflow-stages item-id="selectedItemId" current-stage-text="currentWorkflowStage"></workflow-stages>
+      </div>
+   </ng-form>
+   <global-loader></global-loader>
+</div>
+
+<div class="modal fade bs-example-modal-lg" focus-group focus-group-head="loop" focus-group-tail="loop"
+   focus-stacktabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Reassign to Other User</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table-striped" width="100%">
+               <tr ng-hide="isComplete">
+                  <td width="30%" valign="top" class="ms-formlabel">
+                     <label>Assign to* </label>
+
+                  </td>
+                  <td width="70%" valign="top" class="ms-formbody">
+                     <people-picker picker-id="{{$ctrl.assigneePeoplePickerPrefix}}-stage-peoplePicker"
+                        model="$ctrl.assignee" sp-user-ids="$ctrl.assigneeId" selected-users="$ctrl.assignee"
+                        ng-required="$ctrl.required">
+                     </people-picker>
+                  </td>
+
+            </table>
+         </div>
+         <div class="modal-footer">
+            <input type="button" data-dismiss="modal" value="Close" />
+            <input type="button" ng-click="ReassignUserFunction()" value="Reassign" />
+         </div>
+      </div>
+   </div>
+</div>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+<head>
+   <!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-842</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">d11b38ef-e0a9-423b-a7a6-7cb2b654e038</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-842, ZP7AJ2WSTT3R-904016256-842</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

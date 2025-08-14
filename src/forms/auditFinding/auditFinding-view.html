@@ -1,0 +1,90 @@
+﻿<div ng-controller="AuditFindingController" ng-init="initializeForm(selectedItemId)" class="panel panel-default">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="ViewCustomerComplaint" class="container">
+      <div class="panel-body">
+         <table width="100%" class="table-striped">
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Audit Category</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditCategories, formModel.IMAuditCategoryId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Audit Area</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditAreas, formModel.IMAuditAreaId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Standard of Area Audited</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditAreaStandards, formModel.StandardofAuditAreaId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>References</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <textarea name="AuditingReferencesTextArea" id="AuditingReferencesTextArea" tinymce-editor
+                     ng-model="formModel.IMReferences" disabled></textarea>
+                  <file-list-section id="auditingReferencesFiles" request-id="auditingReferencesFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Audit Party</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditParties, formModel.IMAuditPartyId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Audit Finding Classification</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditFindingClasses, formModel.IMAuditFindingClassificationId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Audit Finding Area</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(AuditFindingAreas, formModel.IMAuditFindingAreaId) }}
+               </td>
+            </tr>
+
+         </table>
+      </div>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <!-- <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions> -->
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-928</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">a26959b2-e2c5-495c-824d-0e96cd7b4839</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-928, ZP7AJ2WSTT3R-904016256-928</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

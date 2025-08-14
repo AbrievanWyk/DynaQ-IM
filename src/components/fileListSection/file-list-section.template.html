@@ -1,0 +1,26 @@
+<div class="file-list-section">
+    <div ng-if="$ctrl.mode === 'edit'">
+        <input style="display: inline;" type="file" id="fileInput_{{$ctrl.id}}" />
+        <button class="btn btn-default" ng-click="$ctrl.uploadFile()" ng-disabled="$ctrl.uploading">Upload</button>
+        <span ng-if="$ctrl.uploading">Uploading...</span>
+        <span class="error" ng-if="$ctrl.error">{{$ctrl.error}}</span>
+    </div>
+    <div>
+        <h4>Files</h4>
+        <ul>
+            <li ng-repeat="file in $ctrl.files">
+                <a ng-href="{{file.url}}" target="_blank">{{file.name}}</a>
+            </li>
+            <li ng-if="$ctrl.files.length === 0">No files uploaded.</li>
+        </ul>
+    </div>
+</div>
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-843</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">95cc4317-11ee-416b-adbe-bf972d74f537</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-843, ZP7AJ2WSTT3R-904016256-843</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

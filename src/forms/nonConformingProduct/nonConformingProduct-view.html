@@ -1,0 +1,95 @@
+﻿<div ng-controller="NonConformingProductController" ng-init="initializeForm(selectedItemId)"
+   class="panel panel-default">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="ViewNonConformingProduct" class="container">
+      <div class="panel-body">
+         <table width="100%" class="table-striped">
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Product Category</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(ComplaintProductCategories, formModel.ProductCategoryId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Product Name</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(ComplaintProductNames, formModel.ProductNameId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Sample Origin</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.ProductSupplier }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Quantity</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.UnitQuantity }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Unit Type</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(UnitTypeList, formModel.UnitTypeId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Production Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formatISODateField(formModel.ProductionDate) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Best Before Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formatISODateField(formModel.BestBeforeDate) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Batch Number Filed</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.BatchNumberFiled }}
+               </td>
+            </tr>
+         </table>
+      </div>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <!-- <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions> -->
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-917</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">b6e7b905-a4dc-4dac-8ba0-ed86246d5336</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-917, ZP7AJ2WSTT3R-904016256-917</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

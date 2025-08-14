@@ -1,0 +1,174 @@
+﻿<div ng-controller="EnvironmentalController" ng-init="initializeForm(selectedItemId)" class="panel panel-default">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="ViewEnvironmental" class="container">
+      <div class="panel-body">
+         <table width="100%" class="table-striped">
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Exact Location</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.ExactLocation }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Incident Date and Time</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{formatISODateField(formModel.IncidentDate)}}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Shift</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(Shifts, formModel.NewShiftId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Initial Action Taken </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <textarea name="InitialActionTakenTextArea" id="InitialActionTakenTextArea" tinymce-editor
+                     ng-model="formModel.InitialActionTaken" disabled></textarea>
+                  <file-list-section id="initialActionTakenFiles" request-id="initialActionTakenFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Reported By</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{formModel.ReportedBy}}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Who was affected </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(affectees, formModel.WhowaseffectedId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>How did it happen </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <textarea name="HowdidithappenTextArea" id="HowdidithappenTextArea" tinymce-editor
+                     ng-model="formModel.InitialActionTaken" disabled></textarea>
+                  <file-list-section id="howDidItHappenFiles" request-id="howDidItHappenFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td colspan="2">
+                  <h3>Nature of Incident</h3>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Permit Condition</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.PermitConditions">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Public Complaint</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.PublicComplaints">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Non-Comformance</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.NonComformances">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Excessive Resource Use</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.ExcessiveResourceUses">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Waste Generation</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.WasteGenerations">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Environmental Spillage</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="item in complexTypesModel.EnvironmentalSpillages">{{item.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+
+
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Evidence or Supporting proof collected</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <textarea name="SupportingevidenceTextArea" id="SupportingevidenceTextArea" tinymce-editor
+                     ng-model="formModel.Supportingevidence" disabled></textarea>
+                  <file-list-section id="supportingEvidenceFiles" request-id="supportingEvidenceFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Man Made Cause </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(ManMadeCauses, formModel.ManMadeCauseId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Natural Causes </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(NaturalCauses, formModel.NaturalCauseId) }}
+               </td>
+            </tr>
+
+         </table>
+      </div>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <!-- <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions> -->
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-874</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">e1101cef-b01d-4bef-bb9d-f2eeaccf29ce</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-874, ZP7AJ2WSTT3R-904016256-874</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

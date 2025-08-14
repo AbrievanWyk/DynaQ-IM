@@ -1,0 +1,71 @@
+<table class="table-striped" style="width: 100%;">
+   <tr ng-hide="$ctrl.showReassign">
+      <td width="30%" valign="top" class="ms-formlabel">
+         <label>{{ $ctrl.actionLabel }}</label><span class="ms-formvalidation" ng-if="$ctrl.required"> *</span>
+      </td>
+      <td width="70%" valign="top" class="ms-formbody">
+         <select ng-model="$ctrl.selectedAction" ng-options="action.label as action.label for action in $ctrl.actions"
+            ng-change="$ctrl.handleChange()" ng-required="$ctrl.required" name="workflowActionSelect">
+         </select>
+         <!-- <smart-select 
+      model="$ctrl.model" 
+      options="$ctrl.options" 
+      value-prop="value" 
+      label-prop="label" 
+      name="workflowActionSelect"
+      required="$ctrl.required">
+    </smart-select> -->
+      </td>
+   </tr>
+   <tr ng-if="!$ctrl.selectedAction || $ctrl.selectedAction.toLowerCase().indexOf('return') === -1 || $ctrl.showReassign" ng-hide="$ctrl.isLastStep">
+      <td width="30%" valign="top" class="ms-formlabel" style="align-content: center;">
+         <label>{{ $ctrl.showReassign ? 'Reassign User' : $ctrl.assigneeLabel }}</label><span class="ms-formvalidation" ng-if="$ctrl.required"> *</span>
+      </td>
+      <td width="70%" valign="top" class="ms-formbody">
+         <!-- Replace with your people picker directive/component -->
+         <!-- <people-picker ng-model="$ctrl.assignee" on-change="$ctrl.handleChange()" required="$ctrl.required">
+      </people-picker> -->
+
+
+         <!-- on-change="$ctrl.handleChange()" -->
+         <people-picker picker-id="{{$ctrl.assigneePeoplePickerPrefix}}-stage-peoplePicker" model="$ctrl.assignee"
+            sp-user-ids="$ctrl.assigneeId" selected-users="$ctrl.assignee" ng-required="$ctrl.required">
+         </people-picker>
+      </td>
+   </tr>
+</table>
+<br />
+<div>
+   <span>
+      <span ng-hide="$ctrl.showReassign">
+         <input type="button" value="Save" ng-click="$ctrl.onSaveStageForm({continueToNextStage: true})" />
+         <input type="button" value="Save & Continue Later"
+            ng-click="$ctrl.onSaveStageForm({continueToNextStage: false})" ng-hide="$ctrl.isLastStep" />
+         <input type="button" value="Reassign" ng-click="$ctrl.showReassign = true" ng-hide="$ctrl.isLastStep" />
+      <input type="button" value="Cancel" ng-click="$ctrl.cancelAndBack()" />
+      </span>
+      <span ng-show="$ctrl.showReassign">
+         <input type="button" value="Reassign" ng-click="$ctrl.reassignAction()" />
+         <input type="button" value="Cancel" ng-click="$ctrl.showReassign = false" />
+      </span>
+      <br />
+      <span class="ms-error">
+         Complete all required fields
+      </span>
+   </span>
+   <div id="dvMessage">
+      <span id="formMessage"></span>
+      <div id="saveLoaderImage">
+         Submitting information.... &nbsp;&nbsp;&nbsp; <img title="loader"
+            src="../../../_layouts/images/gears_anv4.gif" />
+      </div>
+   </div>
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-914</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">12445767-cb6a-48ee-948c-1d57187f5d6b</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-914, ZP7AJ2WSTT3R-904016256-914</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

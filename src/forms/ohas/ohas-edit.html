@@ -1,0 +1,625 @@
+﻿<div ng-controller="OhasController" ng-init="initializeForm(selectedItemId)">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="EditOhas">
+      <table cellspacing="0" width="100%" class="table-striped">
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Exact location<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="ExactLocation" name="ExactLocation"
+                  ng-model="formModel.ExactLocation" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.ExactLocation.$touched && incidentManagementForm.ExactLocation.$invalid">Exact
+                  location is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Incident Date</nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" id="incidentDatepicker" name="incidentDatepicker" ng-model="formModel.IncidentDate"
+                  formatted-date-input include-time includeTime />
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Shift<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.NewShiftId" options="Shifts" value-prop="id" label-prop="value"
+                  name="selShift" required="true"></smart-select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.ExactLocation.$touched && incidentManagementForm.selShift.$invalid">Shift
+                  is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Initial Action Taken<span class="ms-formvalidation"> </span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="InitialActionTakenTextArea" id="InitialActionTakenTextArea" tinymce-editor
+                  ng-model="formModel.InitialActionTaken"></textarea>
+               <br />
+                  <file-list-section id="initialActionTakenFiles" request-id="initialActionTakenFiles" mode="edit"></file-list-section>
+               <!-- <input id="getFileTextActionTaken" type="file" /><br />
+               <input id="addFileButton" type="button" value="Upload"
+                  onclick="uploadImageOrFile('InitialActionTakenTextArea', 'getFileTextActionTaken')" /> -->
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Alcohol/Drug Test<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.DrugTestId" options="DrugTest" value-prop="id" label-prop="value"
+                  name="selDrugTest" required="true"></smart-select>
+               <span class="ms-error" ng-show="incidentManagementForm.selDrugTest.$touched && incidentManagementForm.selDrugTest.$invalid">Alcohol/Drug
+                  Test is required.</span>
+            </td>
+         </tr>
+         <tr ng-if="formModel.DrugTestId == 2">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr id="labelReason">
+                     If no, Reason<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input id="inputReason" title="DrugReason" ng-model="formModel.DrugReason" type="text"
+                  maxlength="255">
+            </td>
+         </tr>
+         <tr ng-if="formModel.DrugTestId == 1">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr id="labelResult">
+                     Alcohol/Drugtest Results<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input id="inputResult" title="DrugResults" ng-model="formModel.DrugResults" type="text"
+                  maxlength="255">
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Reported By<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input title="ReportedBy" ng-model="formModel.ReportedBy" name="ReportedBy" type="text" maxlength="255"
+                  required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.ReportedBy.$touched && incidentManagementForm.ReportedBy.$invalid">Reported
+                  by is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Who was affected?<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.WhowaseffectedId" options="affectees" value-prop="id" label-prop="value"
+                  name="affectee" required="true"></smart-select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.affectee.$touched && incidentManagementForm.affectee.$invalid">Who was
+                  affected is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Evidence or supporting proof collected
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="SupportingEvidenceTextArea" id="SupportingEvidenceTextArea" tinymce-editor
+                  ng-model="formModel.Supportingevidence"></textarea>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.SupportingEvidence.$touched && incidentManagementForm.SupportingEvidence.$invalid">Evidence or
+                  supporting proof collected is required.</span>
+               <br />
+                  <file-list-section id="supportingevidenceFiles" request-id="supportingevidenceFiles" mode="edit"></file-list-section>
+               <!-- <input id="getFileTextActionTaken" type="file" /><br />
+               <input id="addFileButton" type="button" value="Upload"
+                  onclick="uploadImageOrFile('SupportingEvidenceTextArea', 'getFileTextActionTaken')" /> -->
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <label>Incident Classification</label>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Classification of Incident<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+
+               <smart-select model="formModel.ClassificationofIncidentId" options="IncidentClassifications" value-prop="id"
+                  label-prop="value" name="selIncidentClassification" required="true"></smart-select>
+
+               <!-- <select id="selIncidentClassification" name="selIncidentClassification"
+                  ng-model="selIncidentClassification"
+                  ng-options="item as item.value for item in IncidentClassifications track by item.id"
+                  ng-change="updateIncidentSubClassifications(selIncidentClassification)" required /> -->
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.selIncidentClassification.$touched && incidentManagementForm.selIncidentClassification.$invalid">Classification
+                  of Incident is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     SubClassification of Incident<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <select id="selIncidentSubClassification" ng-model="formModel.SubClassificationofIncidentId"
+                  ng-options="item.id as item.value for item in IncidentSubClassifications | filter:{parentId: formModel.ClassificationofIncidentId}"
+                  name="selIncidentSubClassification" required ng-disabled="!formModel.ClassificationofIncidentId">
+                  <option value="0">(None)</option>
+               </select>
+               <!-- <select id="selIncidentSubClassification" name="selIncidentSubClassification"
+                  ng-model="selIncidentSubClassification"
+                  ng-options="item as item.value for item in IncidentSubClassifications track by item.id" required /> -->
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.selIncidentSubClassification.$touched && incidentManagementForm.selIncidentSubClassification.$invalid">SubClassification
+                  of Incident is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <label>Incident Significance</label>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Part of body affected<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <div id="teamCheckboxList" class="checkboxList row">
+                  <div ng-repeat="bodypart in bodyparts" class="col-sm-3">
+                     <label>
+                        <input type="checkbox" ng-model="bodypart.isChecked" name="bodyparts" ng-change="onCheckboxGroupChange('bodyparts', 'PartofBodyAffectedId')"/>
+                        <span>{{bodypart.value}}</span>
+                     </label>
+                  </div>
+               </div>
+               <br />
+               <!-- <input hidden type="checkbox" name="BodyPartRequired" ng-model="BodyPartRequired"
+                  ng-required="isOptionsRequired()"> -->
+               <span class="ms-error" ng-show="incidentManagementForm.BodyPartRequired.$invalid">Part of body affected is
+                  required.</span>
+               <!--<span class="ms-error" ng-show="isOptionsRequired()">Selection is required.</span>-->
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Parts of Body affected - Additional Information<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="BodyPartInformationTextArea" id="BodyPartInformationTextArea" tinymce-editor
+                  ng-model="formModel.BodyPartsAdditionalInformation"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Primary Type of Incident
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">                  
+               <smart-select model="formModel.PrimaryIncidentTypeId" options="incidentTypes" value-prop="id" label-prop="value"
+                  name="PrimaryIncident" required="true"></smart-select>
+               <span class="ms-error" ng-show="incidentManagementForm.IncidentTypeRequired.$invalid">Primary type of incident is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Immediate Causes
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <div id="teamCheckboxList" class="checkboxList row">
+                  <div ng-repeat="cause in immediateCauses" class="col-sm-3">
+                     <label>
+                        <input type="checkbox" ng-model="cause.isChecked" name="immediateCauses" ng-change="onCheckboxGroupChange('immediateCauses', 'ImmediateCauseId')"/>
+                        <span>{{cause.value}}</span>
+                     </label>
+                  </div>
+               </div>
+               <br />
+               <!-- <input hidden type="checkbox" name="ImmediateCausesRequired" ng-model="ImmediateCausesRequired"
+                  ng-required="isOptionsRequired()"> -->
+               <span class="ms-error" ng-show="incidentManagementForm.ImmediateCausesRequired.$invalid">Immediate causes is
+                  required.</span>
+            </td>
+         </tr>
+         <tr ng-show="isOtherChecked('ImmediateCauseId', immediateCauses)">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Immediate Cause - Other<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="ImmediateCauseOtherTextArea" id="ImmediateCauseOtherTextArea" tinymce-editor
+                  ng-model="formModel.ImmediateCauseOther"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Nature of Injury
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <div id="teamCheckboxList" class="checkboxList row">
+                  <div ng-repeat="injury in natureOfInjuries" class="col-sm-3">
+                     <label>
+                        <input type="checkbox" ng-model="injury.isChecked" name="natureOfInjuries" ng-change="onCheckboxGroupChange('natureOfInjuries', 'NatureOfInjuryId')"/>
+                        <span>{{injury.value}}</span>
+                     </label>
+                  </div>
+               </div>
+               <br />
+               <!-- <input hidden type="checkbox" name="NatureOfInjuryRequired" ng-model="NatureOfInjuryRequired"
+                  ng-required="isOptionsRequired()"> -->
+               <span class="ms-error" ng-show="incidentManagementForm.NatureOfInjuryRequired.$invalid">Nature of injury is
+                  required.</span>
+            </td>
+         </tr>
+         <tr ng-show="isOtherChecked('NatureOfInjuryId', natureOfInjuries)">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Nature of Injury - Other<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="NatureOfInjuryOtherTextArea" id="NatureOfInjuryOtherTextArea" tinymce-editor
+                  ng-model="formModel.NatureOfInjuryOther"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Source of Injury
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <div id="teamCheckboxList" class="checkboxList row">
+                  <div ng-repeat="source in sourcesOfInjury" class="col-sm-3">
+                     <label>
+                        <input type="checkbox" ng-model="source.isChecked" name="sourcesOfInjury" ng-change="onCheckboxGroupChange('sourcesOfInjury', 'SourceOfInjuryId')"/>
+                        <span>{{source.value}}</span>
+                     </label>
+                  </div>
+               </div>
+               <br />
+               <!-- <input hidden type="checkbox" name="SourceOfInjuryRequired" ng-model="SourceOfInjuryRequired"
+                  ng-required="isOptionsRequired()"> -->
+               <span class="ms-error" ng-show="incidentManagementForm.SourceOfInjuryRequired.$invalid">Source of injury is
+                  required.</span>
+            </td>
+         </tr>
+         <tr ng-show="isOtherChecked('SourceOfInjuryId', sourcesOfInjury)">
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Source of Injury - Other<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="SourceOfInjuryOtherTextArea" id="SourceOfInjuryOtherTextArea" tinymce-editor
+                  ng-model="formModel.SourceOfInjuryOther"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Occupational Stressor<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <div id="teamCheckboxList" class="checkboxList row">
+                  <div ng-repeat="stressor in OccupationalStressors" class="col-sm-3">
+                     <label>
+                        <input type="checkbox" ng-model="stressor.isChecked" name="OccupationalStressors" ng-change="onCheckboxGroupChange('OccupationalStressors', 'OccupationalStressorId')"/>
+                        <span>{{stressor.value}}</span>
+                     </label>
+                  </div>
+               </div>
+               <br />
+               <!-- <input hidden type="checkbox" name="OccupationalStressorRequired" ng-model="OccupationalStressorRequired"
+                  ng-required="isOccupationalStressorRequired()"> -->
+               <span class="ms-error" ng-show="incidentManagementForm.OccupationalStressorRequired.$invalid">Occupational Stressor is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Man Made Cause<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.ManMadeCauseId" options="ManMadeCauses" value-prop="id"
+                  label-prop="value" name="ManMadeCause" required="true"></smart-select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.ManMadeCause.$touched && incidentManagementForm.ManMadeCause.$invalid">Man
+                  Made Cause is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Natural Causes<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.NaturalCauseId" options="NaturalCauses" value-prop="id"
+                  label-prop="value" name="NaturalCause" required="true"></smart-select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.NaturalCause.$touched && incidentManagementForm.NaturalCause.$invalid">Natural
+                  Cause is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <label>Employee, Contractor or Person affected details</label>
+            </td>
+         </tr>
+
+
+
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Name of Employee<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="EmployeeName" name="EmployeeName"
+                  ng-model="formModel.EmployeeName" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error" ng-show="incidentManagementForm.EmployeeName.$touched && incidentManagementForm.EmployeeName.$invalid">Name of
+                  Employee is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Age<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="Age" name="Age"
+                  ng-model="formModel.Age" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error" ng-show="incidentManagementForm.Age.$touched && incidentManagementForm.Age.$invalid">Age is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Department<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="IMDepartment" name="IMDepartment"
+                  ng-model="formModel.IMDepartment" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error" ng-show="incidentManagementForm.IMDepartment.$touched && incidentManagementForm.IMDepartment.$invalid">Department is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Regular Occupation<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="RegularOccupation" name="RegularOccupation"
+                  ng-model="formModel.RegularOccupation" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.RegularOccupation.$touched && incidentManagementForm.RegularOccupation.$invalid">Regular Occupation is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Period in present job<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="PeriodPresentJob" name="PeriodPresentJob"
+                  ng-model="formModel.PeriodPresentJob" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.PeriodPresentJob.$touched && incidentManagementForm.PeriodPresentJob.$invalid">Period in present job
+                  is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Years of Company Service<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="YearsCompanyService" name="YearsCompanyService"
+                  ng-model="formModel.YearsCompanyService" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.YearsCompanyService.$touched && incidentManagementForm.YearsCompanyService.$invalid">Years of Company
+                  Service is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Name of Supervisor<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="NameofSupervisor" name="NameofSupervisor"
+                  ng-model="formModel.NameofSupervisor" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.NameofSupervisor.$touched && incidentManagementForm.NameofSupervisor.$invalid">Name of Supervisor is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Department Manager<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <input type="text" maxlength="255" title="DepartmentManager" name="DepartmentManager"
+                  ng-model="formModel.DepartmentManager" class="ms-long ms-spellcheck-true" required>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.DepartmentManager.$touched && incidentManagementForm.DepartmentManager.$invalid">Department Manager is
+                  required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <label>Human Impact</label>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Effect on Person<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.EffectonPersonId" options="EffectOnPersons" value-prop="id" label-prop="value"
+                  name="EffectOnPerson" required="true"></smart-select>
+               <span class="ms-error" ng-show="incidentManagementForm.EffectOnPerson.$touched && incidentManagementForm.EffectOnPerson.$invalid">Effect
+                  on Person is required.</span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Result of Incident<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <smart-select model="formModel.ResultofIncidentId" options="ResultofIncidents" value-prop="id" label-prop="value"
+                  name="ResultofIncident" required="true"></smart-select>
+               <span class="ms-error"
+                  ng-show="incidentManagementForm.ResultofIncident.$touched && incidentManagementForm.ResultofIncident.$invalid">Result of Incident is
+                  required.</span>
+            </td>
+         </tr>
+      </table>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions>
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-894</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">2a2c3f34-c089-41a2-9a54-26cdb4b6677e</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-894, ZP7AJ2WSTT3R-904016256-894</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

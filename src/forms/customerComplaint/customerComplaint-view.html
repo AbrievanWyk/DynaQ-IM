@@ -1,0 +1,243 @@
+﻿<div ng-controller="CustomerComplaintController" ng-init="initializeForm(selectedItemId)" class="panel panel-default">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="ViewCustomerComplaint" class="container">
+      <div class="panel-body">
+         <table width="100%" class="table-striped">
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Name</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(CustomerNames, formModel.CustomerNameId) }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Category</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.CustomerComplaintCategory }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Location</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.CustomerLocation }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Province</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(ProvinceList, formModel.ProvinceId) }}
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Store Outlet Retailer</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(StoreOutletRetailerList, formModel.StoreOutletRetailerId) }}
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Source of Complaint</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{getLookupValue(SourceOfComplaintList, formModel.SourceofComplaintId)}}
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Contact Person</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{formModel.CustomerContactPerson}}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Contact Telephone</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.CustomerContactTelephone }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Contact Email</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.CustomerContactEmail }}
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Complaint Category</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <ul>
+                     <li>
+                        Type: {{ getLookupValue(ComplaintTypes, formModel.ComplaintTypeId) }}
+                     </li>
+                     <li>
+                        Classification: {{ getLookupValue(ComplaintClassifications,
+                        formModel.CustomerComplaintServiceId)
+                        }}
+                     </li>
+                     <li>
+                        Product Category: {{ getLookupValue(ComplaintProductCategories, formModel.ProductCategoryId) }}
+                     </li>
+                     <li>
+                        Product Name: {{ getLookupValue(ComplaintProductNames, formModel.ProductNameId) }}
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Quantity</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.UnitQuantity }}
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Unit Type</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ getLookupValue(UnitTypeList, formModel.UnitTypeId) }}
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Problem Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formatISODateField(formModel.CustomerProblemDate) }}
+               </td>
+            </tr>
+
+            <!-- TODO: Find out why 'Final Finance Approval' logic is here -->
+            <tr ng-if="TaskStat === 'Final Finance Approval'">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Is there a claim?</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-model="formModel.IsCustomerClaim" name="selIsCustomerClaim" id="selIsCustomerClaim">
+                     <option value="true">Yes</option>
+                     <option value="false">No</option>
+                  </select>
+               </td>
+            </tr>
+
+            <!-- TODO: Find out why 'Final Finance Approval' logic is here -->
+            <tr ng-if="TaskStat !== 'Final Finance Approval'">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Is there a claim?</label>
+               </td>
+               <td>{{formModel.IsCustomerClaim?'Yes':'No'}}</td>
+            </tr>
+            <tr ng-show="formModel.IsCustomerClaim">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Claim Detail</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <textarea name="CustomerClaimDetailTextArea" id="CustomerClaimDetailTextArea" tinymce-editor
+                     ng-model="formModel.CustomerClaimDetail" disabled></textarea>
+                  <file-list-section id="customerClaimDetail" request-id="customerClaimDetail"
+                     mode="view"></file-list-section>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Production Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <div id="productionDate">{{ formatISODateField(formModel.ProductionDate) }}</div>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Best Before Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <div id="bestBeforeDate">{{ formatISODateField(formModel.BestBeforeDate) }}</div>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Batch Number Filed</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <div id="batchNumberFiled">{{ formModel.BatchNumberFiled }}</div>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Customer Representatives</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <div ng-repeat="customerRep in CustomerRepresentativeList">{{customerRep.value}} -
+                     {{customerRep.email}}
+                  </div>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Business Managers</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-repeat="bm in complexTypesModel.BusinessManagers">{{bm.Title}}{{$last ? '' : ', '}}</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Existing AR Reference</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  {{ formModel.ExistingARReference }}
+               </td>
+            </tr>
+
+         </table>
+      </div>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <!-- <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions> -->
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-866</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">8c7cf2c3-82d5-49ae-b9dc-dac32f63e61b</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-866, ZP7AJ2WSTT3R-904016256-866</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

@@ -1,0 +1,47 @@
+<table cellspacing="0" width="100%" class="table-striped">
+   <tr>
+      <td width="30%" valign="top" class="ms-formlabel">
+         <h3 class="ms-standardheader">
+            <nobr>Has this happened before?<span class="ms-formvalidation"> *</span></nobr>
+         </h3>
+      </td>
+      <td width="70%" valign="top" class="ms-formbody">
+         <select id="selHasThisHappenedBefore" name="selHasThisHappenedBefore"
+            ng-model="$ctrl.formModel.hasThisHappenedBeforeId"
+            ng-options="item.id as item.value for item in $ctrl.hasThisHappenedBeforeOptions" required>
+         </select>
+         <span class="ms-error" ng-show="$ctrl.form.selHasThisHappenedBefore.$touched &&
+                     $ctrl.form.selHasThisHappenedBefore.$invalid">
+            Selection is required.
+         </span>
+      </td>
+   </tr>
+   <tr>
+      <td width="30%" valign="top" class="ms-formlabel">
+         <h3 class="ms-standardheader">
+            <nobr>Description</nobr>
+         </h3>
+      </td>
+      <td width="70%" class="ms-formbody">
+         <div id="myDiv">
+            <textarea name="DescriptionTextArea" tinymce-editor ng-model="$ctrl.formModel.IMKpiDescription"></textarea>
+         </div>
+         <span class="ms-metadata">Provide detail information about the incident or action required.</span>
+         <br />
+         <div id="FileListSection">
+            <file-list-section id="incidentDescription" request-id="incidentDescription" mode="edit"></file-list-section>
+         </div>
+         <!-- <input id="getFileDescription" type="file" /><br />
+         <input id="addFileButton" type="button" value="Upload"
+            onclick="SPFileOperations.uploadFile('DescriptionTextArea', 'getFileDescription')" /> -->
+      </td>
+   </tr>
+</table><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-849</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">ebbb340b-722f-4377-be08-c120d3708398</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-849, ZP7AJ2WSTT3R-904016256-849</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

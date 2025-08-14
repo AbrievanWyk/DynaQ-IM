@@ -1,0 +1,57 @@
+<div>
+   <investigator-stage 
+      ng-if="$ctrl.visibleStages.includes('investigatorStage')"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'investigatorStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </investigator-stage>
+
+   <finance-stage
+      ng-if="$ctrl.visibleStages.includes('financeStage') || $ctrl.formModel.FinanceApprovalComments"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'financeStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </finance-stage>
+
+   <cpa-stage
+      ng-if="$ctrl.visibleStages.includes('cpaStage') || $ctrl.formModel.CPA"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'cpaStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </cpa-stage>
+
+   <manager-stage
+      ng-if="$ctrl.visibleStages.includes('managerStage') || $ctrl.formModel.ManagerComments"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'managerStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </manager-stage>
+
+   <qa-stage
+      ng-if="$ctrl.visibleStages.includes('qaStage') || $ctrl.formModel.QualityComments"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'qaStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </qa-stage>
+
+   <final-finance-stage
+      ng-if="$ctrl.visibleStages.includes('finalFinanceStage') || $ctrl.formModel.FinalFinanceApprovalComments"
+      form-model="$ctrl.formModel"
+      editable="$ctrl.currentStage === 'finalFinanceStage'"
+      save-stage="$ctrl.saveCurrentStage(stageModel)"
+      handle-next-action-change="$ctrl.handleNextActionChange(action, assigneeId)">
+   </final-finance-stage>
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-857</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">bf3d08ce-cb6c-4597-82d2-ea6efd1f8669</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-857, ZP7AJ2WSTT3R-904016256-857</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

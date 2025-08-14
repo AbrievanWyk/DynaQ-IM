@@ -1,0 +1,77 @@
+<div class="modal fade bs-example-modal-lg" focus-group focus-group-head="loop" focus-group-tail="loop"
+   focus-stacktabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Reassign to Other User</h4>
+         </div>
+         <div class="modal-body">
+            <table class="table-striped" width="100%">
+               <tr ng-hide="isComplete">
+                  <td width="30%" valign="top" class="ms-formlabel">
+                     <label>Assign to* </label>
+
+                  </td>
+                  <td width="70%" valign="top" class="ms-formbody">
+                     <people-picker picker-id="reassign-stage-peoplePicker" model="$ctrl.selectedUser"
+                        sp-user-ids="$ctrl.assigneeId" selected-users="$ctrl.selectedUser" ng-required="$ctrl.required">
+                     </people-picker>
+                  </td>
+
+            </table>
+         </div>
+         <div class="modal-footer">
+            <button ng-click="$ctrl.save()">Reassign</button>
+            <button ng-click="$ctrl.cancel()">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+<!-- 
+   <div class="modal fade bs-example-modal-lg" focus-group focus-group-head="loop" focus-group-tail="loop"
+      focus-stacktabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title" id="myModalLabel">Reassign to Other User</h4>
+            </div>
+            <div class="modal-body">
+               <table class="table-striped" width="100%">
+                  <tr ng-hide="isComplete">
+                     <td width="30%" valign="top" class="ms-formlabel">
+                        <label>Assign to* </label>
+
+                     </td>
+                     <td width="70%" valign="top" class="ms-formbody">
+                        <script type="text/javascript" src="../../../_layouts/15/clienttemplates.js">  </script>
+                        <script type="text/javascript" src="../../../_layouts/15/clientforms.js">  </script>
+                        <script type="text/javascript" src="../../../_layouts/15/clientpeoplepicker.js">  </script>
+                        <script type="text/javascript" src="../../../_layouts/15/autofill.js">  </script>
+                        <script type="text/javascript" src="../../../_layouts/15/sp.core.js">  </script>
+                        <div id="reassignPeoplePickerDiv"></div>
+
+                     </td>
+
+               </table>
+            </div>
+            <div class="modal-footer">
+               <input type="button" data-dismiss="modal" value="Close" />
+               <input type="button" ng-click="ReassignUserFunction()" value="Reassign" />
+            </div>
+         </div>
+      </div>
+   </div> --><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-855</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">12288b27-3bf4-492a-a8a9-7660eb4d8e63</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-855, ZP7AJ2WSTT3R-904016256-855</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

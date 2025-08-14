@@ -1,0 +1,97 @@
+{
+            "TaskStat": "taskStat",
+            "ARReason": "OHaS",
+            "ARStatus": "In Progress",
+            //"Title": Title,
+            "IsDraft": "$scopeViewOHaS.IsDraft",
+            "ExactLocation": "ExactLocation",
+            "IncidentDate": "IncidentDate",
+            "InitialActionTaken": "InitialActionTaken",
+            "ReportedBy": "ReportedBy",
+            "Supportingevidence": "SupportingEvidence",
+            //"IMKpiDescription": Description,
+            "DrugReason": "DrugTestNoReason",
+            "DrugResults": "TestResults",
+            "EmployeeName": "EmployeeName",
+            "Age": "EmployeeAge",
+            "IMDepartment": "EmployeeDepartment",
+            "RegularOccupation": "EmployeeRegularOccupation",
+            "PeriodPresentJob": "EmployeePeriodInPresentJob",
+            "YearsCompanyService": "EmployeeYearsOfCompanyService",
+            "NameofSupervisor": "EmployeeNameOfSupervisor",
+            "DepartmentManager": "EmployeeDepartmentManager",
+            "DrugTestId": "DrugTestID",
+            "EffectonPersonId": "EffectOnPersonID",
+            "ResultofIncidentId": "ResultofIncident",
+            //"AreaId": BusinessAreaID,
+            //"DepartmentAreaofProblemId": DebtAreaOfProbelemID,
+            "WhowaseffectedId": "WhoWasAffectedID",
+            "SubClassificationofIncidentId": "incidentSubClassificationID",
+            "ManMadeCauseId": "manMadeCauseID",
+            "NaturalCauseId": "naturalCauseID",
+            "NewShiftId": "ShiftID",
+            //"hasThisHappenedBeforeId": HasThisHappenedBeforeID,
+            "ClassificationofIncidentId": "incidentClassificationID",
+            "InitiatorId": "SPuser.get_id()",
+            "PartofBodyAffectedId": {
+                  "results": "selectedBodyParts"
+            },
+            "OccupationalStressorId": {
+                  "results": "selectedOccupationalStressor"
+            },
+            "ImmediateCauseId": {
+                  "results": "selectedImmediateCauses"
+            },
+            "NatureOfInjuryId": {
+                  "results": "selectedNaturesOfInjury"
+            },
+            "SourceOfInjuryId": {
+                  "results": "selectedSourcesOfInjury"
+            },
+            "ImmediateCauseOther": "immediateCauseOther",
+            "NatureOfInjuryOther": "natureOfInjuryOther",
+            "SourceOfInjuryOther": "sourceOfInjuryOther",
+            "BodyPartsAdditionalInformation": "bodyPartInformation"
+      }
+
+            // "ExactLocation"
+      "IncidentDate"
+      "InitialActionTaken"
+      "ReportedBy"
+      "Supportingevidence"
+      "DrugReason"
+      "DrugResults"
+      "EmployeeName"
+      "Age"
+      "IMDepartment"
+      "RegularOccupation"
+      "PeriodPresentJob"
+      "YearsCompanyService"
+      "NameofSupervisor"
+      "DepartmentManager"
+      "DrugTestId"
+      "EffectonPersonId"
+      "ResultofIncidentId"
+      "WhowaseffectedId"
+      "SubClassificationofIncidentId"
+      "ManMadeCauseId"
+      "NaturalCauseId"
+      "NewShiftId"
+      "ClassificationofIncidentId"
+      "PartofBodyAffectedId"
+      "OccupationalStressorId"
+      "ImmediateCauseId"
+      "NatureOfInjuryId"
+      "SourceOfInjuryId"
+      "ImmediateCauseOther"
+      "NatureOfInjuryOther"
+      "SourceOfInjuryOther"
+      "BodyPartsAdditionalInformation"
+
+
+
+      //       "PartofBodyAffectedId": { "results": selectedBodyParts },
+      // "OccupationalStressorId": { "results": selectedOccupationalStressor },
+      // "ImmediateCauseId": { "results": selectedImmediateCauses },
+      // "NatureOfInjuryId": { "results": selectedNaturesOfInjury },
+      // "SourceOfInjuryId": { "results": selectedSourcesOfInjury },

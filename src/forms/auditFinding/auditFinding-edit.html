@@ -1,0 +1,141 @@
+﻿<div ng-controller="AuditFindingController" ng-init="initializeForm(selectedItemId)">
+   <div id="ViewTitle">
+      <incident-common-fields-section incident-title="formModel.Title" selected-business-area="formModel.AreaId"
+         selected-problem-department-area="formModel.DepartmentAreaofProblemId" business-areas="BusinessAreas"
+         problem-department-areas="ProblemDepartmentAreas" form="incidentManagementForm" display-mode="{{displayMode}}"
+         form-model="formModel">
+      </incident-common-fields-section>
+   </div>
+   <div id="EditAuditFinding">
+      <table cellspacing="0" width="100%" class="table-striped">
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Audit Category<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.IMAuditCategoryId" options="AuditCategories" value-prop="id"
+                     label-prop="value" name="selAuditCategories" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditCategories.$touched && incidentManagementForm.selAuditCategories.$invalid">Audit Category is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>Audit Area<span class="ms-formvalidation"> *</span></nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.IMAuditAreaId" options="AuditAreas" value-prop="id"
+                     label-prop="value" name="selAuditAreas" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditAreas.$touched && incidentManagementForm.selAuditAreas.$invalid">Audit Area is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Standard of Area Audited<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.StandardofAuditAreaId" options="AuditAreaStandards" value-prop="id"
+                     label-prop="value" name="selAuditAreaStandards" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditAreaStandards.$touched && incidentManagementForm.selAuditAreaStandards.$invalid">Audit Area is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     References<span class="ms-formvalidation"> </span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="AuditingReferencesTextArea" id="AuditingReferencesTextArea" tinymce-editor
+                  ng-model="formModel.IMReferences"></textarea>
+               <br />
+                  <file-list-section id="auditingReferencesFiles" request-id="auditingReferencesFiles" mode="edit"></file-list-section>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Audit Party<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.IMAuditPartyId" options="AuditParties" value-prop="id"
+                     label-prop="value" name="selAuditParties" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditParties.$touched && incidentManagementForm.selAuditParties.$invalid">Audit Party is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Audit Finding Classification<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.IMAuditFindingClassificationId" options="AuditFindingClasses" value-prop="id"
+                     label-prop="value" name="selAuditFindingClass" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditFindingClass.$touched && incidentManagementForm.selAuditFindingClass.$invalid">Audit Finding Classification is required.</span>
+               </span>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <H3 class="ms-standardheader">
+                  <nobr>
+                     Audit Finding Area<span class="ms-formvalidation"> *</span>
+                  </nobr>
+               </H3>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <span>
+                  <smart-select model="formModel.IMAuditFindingAreaId" options="AuditFindingAreas" value-prop="id"
+                     label-prop="value" name="selAuditFindingAreas" required="true"></smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selAuditFindingAreas.$touched && incidentManagementForm.selAuditFindingAreas.$invalid">Audit Finding Area is required.</span>
+               </span>
+            </td>
+         </tr>
+      </table>
+   </div>
+   <hr />
+   <incident-description ng-if="selectedForm" form-model="formModel" display-mode="{{displayMode}}"
+      has-this-happened-before-options="HasThisHappenedBeforeList" form-id="selectedForm.id"
+      business-areas="BusinessAreas" problem-department-areas="ProblemDepartmentAreas"></incident-description>
+   <incident-form-actions ng-if="selectedForm" form-id="selectedForm.id" form-model="formModel"
+      complex-types-model="complexTypesModel" save-fn="saveForm" form-valid="true">
+   </incident-form-actions>
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-927</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">1411b42b-3157-4d09-8488-7306e4b06853</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-927, ZP7AJ2WSTT3R-904016256-927</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

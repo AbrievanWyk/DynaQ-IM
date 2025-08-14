@@ -1,0 +1,63 @@
+<div class="container">
+   <div class="panel-body">
+      <table cellspacing="0" width="100%" class="table-striped">
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Business Area</label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">{{$ctrl.getAreaName($ctrl.formModel.AreaId)}}
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Department / Area of Problem</label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               {{$ctrl.getDepartmentAreaName($ctrl.formModel.DepartmentAreaofProblemId)}}
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Has this happened before?</label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               {{$ctrl.getHasThisHappenedBeforeText($ctrl.formModel.hasThisHappenedBeforeId)}}
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Description</label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <textarea name="DescriptionTextArea" tinymce-editor ng-model="$ctrl.formModel.IMKpiDescription"
+                  disabled></textarea>
+            <file-list-section id="incidentDescription" request-id="incidentDescription" mode="view"></file-list-section>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Initiator </label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <label>{{$ctrl.formModel.Initiator.Title}}</label>
+            </td>
+         </tr>
+         <tr>
+            <td width="30%" valign="top" class="ms-formlabel">
+               <label>Date: </label>
+            </td>
+            <td width="70%" valign="top" class="ms-formbody">
+               <label>{{$ctrl.formModel.Created}}</label>
+            </td>
+         </tr>
+      </table>
+   </div>
+</div><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-850</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">2714f277-cd59-473c-a129-5bd97bd3fd1c</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-850, ZP7AJ2WSTT3R-904016256-850</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>

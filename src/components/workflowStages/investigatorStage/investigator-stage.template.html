@@ -1,0 +1,469 @@
+<fieldset id="InvestigatorForm" class="container">
+   <div class="panel panel-default">
+      <div class="panel-heading">
+         <label>INVESTIGATOR</label>
+      </div>
+      <div class="panel-body">
+         <table class="table-striped" width="100%">
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Investigation Participants</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input style="width:100%;" type="text" ng-disabled="!$ctrl.editable" maxlength="255"
+                     class="ms-long ms-spellcheck-true" ng-model="$ctrl.formModel.InvestigationParticipants"
+                     name="InvestigationParticipants" required />
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.investigationParticipants.$touched && incidentManagementForm.investigationParticipants.$invalid">Investigation
+                     participants is required.</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Investigation Details</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable">
+                  <textarea class="InvestigatorTextArea" name="InvestigationDeatilsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.InvestigatorDetails"></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide detail information about investigation. (Make use of 5Why
+                     or Ishikawa to perform investigation and identify root causes and contributing
+                     factors)</span>
+                  <br />
+                  <file-list-section id="investigationDetailsFiles" request-id="investigationDetailsFiles" mode="edit"></file-list-section>
+                  <!-- <input id="getFileInvestigation" type="file" />
+                  <br />
+                  <input name="addFileButton" type="button" value="Upload"
+                     onclick="uploadImageOrFile('InvestigationDeatilsTextArea', 'getFileInvestigation')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable">
+                  <textarea class="InvestigatorTextArea" name="InvestigationDeatilsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.InvestigatorDetails" disabled></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide detail information about investigation. (Make use of 5Why
+                     or Ishikawa to perform investigation and identify root causes and contributing
+                     factors)</span>
+                  <file-list-section id="investigationDetailsFiles" request-id="investigationDetailsFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>If Safe Work Procedure Exist? <br />Provide procedure name and number</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input style="width:100%;" type="text" ng-disabled="!$ctrl.editable" maxlength="255"
+                     class="ms-long ms-spellcheck-true" ng-model="$ctrl.formModel.ProcedureName" name="ProcedureName" />
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Date of last review and training</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="text" id="reviewTrainingDate" name="reviewTrainingDateDatepicker" formatted-date-input
+                     ng-model="$ctrl.formModel.ReviewTrainingDate" ng-disabled="!$ctrl.editable">
+               </td>
+            </tr>            
+            <tr ng-show="$ctrl.formID === 'Environmental'">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>What impact will the environmental Incident have?</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <span ng-if="!$ctrl.editable" ng-repeat="item in $ctrl.formModel.EnvironmentalImpact.results">{{item.Title}}{{$last ? '' : ', '}}</span>
+                  <div ng-if="$ctrl.editable" id="teamCheckboxList" class="checkboxList row">
+                     <div ng-repeat="impact in $ctrl.environmentalImpacts" class="col-sm-3">
+                        <label>
+                           <input type="checkbox" ng-model="impact.isChecked" name="environmentalImpacts"
+                              ng-change="$ctrl.onCheckboxGroupChange('environmentalImpacts', 'EnvironmentalImpactId')"/>
+                           <span>{{impact.value}}</span>
+                        </label>
+                     </div>
+                  </div>
+               </td>
+            </tr>
+            <tr ng-show="$ctrl.formID === 'Environmental'">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Quantity of pollutant</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input style="width:100%;" type="text" ng-disabled="!$ctrl.editable" maxlength="255"
+                     class="ms-long ms-spellcheck-true" ng-model="$ctrl.formModel.QuantityOfPollutant" name="QuantityOfPollutant"
+                     required />
+               </td>
+            </tr>
+            <tr ng-show="$ctrl.formID === 'Environmental'">
+               <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+                  <label>Duration of pollution</label>
+               </td>
+
+               <td width="70%" valign="top" class="ms-formbody">
+                  
+               <smart-select class="ms-RadioText" model="$ctrl.formModel.DurationOfPollutionId" options="$ctrl.PollutionDurations" value-prop="id"
+                  label-prop="value" name="selDurationOfPollution" ng-disabled="!$ctrl.editable" required="true"></smart-select>
+
+                  <!-- <select id="selDurationOfPollution" ng-disabled="DisableInvestigatorform" class="ms-RadioText"
+                     ng-model="selDurationOfPollution" name="selDurationOfPollution"
+                     ng-options="item as item.value for item in PollutionDurations track by item.id" required /> -->
+               </td>
+            </tr>
+
+            <tr ng-show="$ctrl.formID === 'Environmental'">
+               <td width="30%" valign="top" width="30%" valign="top" class="ms-formlabel">
+                  <label>Scope of pollution</label>
+               </td>
+
+               <td width="70%" valign="top" class="ms-formbody">
+               <smart-select class="ms-RadioText" model="$ctrl.formModel.ScopeOfPollutionId" options="$ctrl.PollutionScopes" value-prop="id"
+                  label-prop="value" name="selScopeOfPollution" ng-disabled="!$ctrl.editable" required="true"></smart-select>
+
+                  <!-- <select id="selScopeOfPollution" ng-disabled="DisableInvestigatorform" class="ms-RadioText"
+                     ng-model="selScopeOfPollution" name="selScopeOfPollution"
+                     ng-options="item as item.value for item in PollutionScopes track by item.id" required /> -->
+               </td>
+            </tr>
+         
+
+
+
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Is this incident covered in Risk Assessment? *</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-model="$ctrl.formModel.IsIncidentCovered" name="selIsIncidentCovered"
+                     id="selIsIncidentCovered" ng-disabled="!$ctrl.editable"
+                     ng-options="opt.value as opt.label for opt in $ctrl.yesNoOptions">
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selIsIncidentCovered.$touched && incidentManagementForm.selIsIncidentCovered.$invalid">Is
+                     incident covered is required.</span>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+
+                  <label>{{$ctrl.formModel.IsIncidentCovered ? 'Type Risk Reference Nr and Change Details' :
+                     'Add Risk Item, Nr and rating details'}} *</label>
+               </td>
+
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable">
+                  <textarea class="RiskAssessmentTextArea" name="RiskAssessmentTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.RiskAssessmentDetails"></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide details of the risk assessment.</span>
+                  <br />
+                  <file-list-section id="riskAssessmentFiles" request-id="riskAssessmentFiles" mode="edit"></file-list-section>
+                  <!-- <input id="getRiskAssessment" type="file" />
+                  <br />
+                  <input name="addFileButton" type="button" value="Upload"
+                     onclick="uploadImageOrFile('RiskAssessmentTextArea', 'getRiskAssessment')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable">
+                  <textarea class="RiskAssessmentTextArea" name="RiskAssessmentTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.RiskAssessmentDetails" disabled></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide details of the risk assessment.</span>
+                  <file-list-section id="riskAssessmentFiles" request-id="riskAssessmentFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Root Cause Category *</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <smart-select class="ms-RadioText" model="$ctrl.formModel.RootCauseCategoryId"
+                     options="$ctrl.RootCauseCategories" value-prop="id" label-prop="value" name="selRootCauseCategory"
+                     required="true" ng-disabled="!$ctrl.editable">
+                  </smart-select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selRootCauseCategory.$touched && incidentManagementForm.selRootCauseCategory.$invalid">Root
+                     Cause Category is required.</span>
+                  <br />
+                  <span class="ms-metadata">Primary root cause category for incident.</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Root Cause *</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-disabled="!$ctrl.editable || !$ctrl.formModel.RootCauseCategoryId"
+                     id="selComplaintClassification" ng-model="$ctrl.formModel.RootCauseARId"
+                     name="selComplaintClassification"
+                     ng-options="item.id as item.value for item in $ctrl.RootCauses | filter:{parentId: $ctrl.formModel.RootCauseCategoryId}"
+                     required>
+                     <option value="0">(None)</option>
+                  </select>
+                  <span class="ms-error" ng-show="incidentManagementForm.selRootCause.$touched && incidentManagementForm.selRootCause.$invalid">Root
+                     Cause is
+                     required.</span>
+                  <br /><span class="ms-metadata">Select root cause area.</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Action Required Category *</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-disabled="!$ctrl.editable" id="selActionRequired" name="selActionRequired"
+                     ng-model="$ctrl.formModel.ActionRequiredId"
+                     ng-options="item.id as item.value for item in $ctrl.ActionsRequired | orderBy:'value'" required>
+                     <option value="0">(None)</option>
+                  </select>
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selActionRequired.$touched && incidentManagementForm.selActionRequired.$invalid">Action is
+                     required.</span>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Immediate Correction taken</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable">
+                  <textarea class="ImmediateCorrectionTakenTextArea" name="ImmediateCorrectionTakenTextArea"
+                     tinymce-editor ng-model="$ctrl.formModel.ImmediateCorrection"></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide details of immediate correction taken.</span>
+                  <br />
+                  <file-list-section id="immediateCorrectionFiles" request-id="immediateCorrectionFiles" mode="edit"></file-list-section>
+                  <!-- <input id="getImmediateCorrectionTaken" type="file" />
+                  <br />
+                  <input name="addFileButton" type="button" value="Upload"
+                     onclick="uploadImageOrFile('ImmediateCorrectionTakenTextArea', 'getImmediateCorrectionTaken')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable">
+                  <textarea class="ImmediateCorrectionTakenTextArea" name="ImmediateCorrectionTakenTextArea"
+                     tinymce-editor ng-model="$ctrl.formModel.ImmediateCorrection" disabled></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide details of immediate correction taken.</span>
+                  <file-list-section id="immediateCorrectionFiles" request-id="immediateCorrectionFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Required CPA *</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable">
+                  <textarea class="SuggestedCPATextArea" name="SuggestedCPATextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.SuggestedCPA"></textarea>
+                  <br />
+                  <span class="ms-metadata">Define the required activities to perform corrective and preventive
+                     action.</span>
+                  <br />
+                  <file-list-section id="suggestedCPAFiles" request-id="suggestedCPAFiles" mode="edit"></file-list-section>
+                  <!-- <input id="getFileCPA" type="file" />
+                  <br />
+                  <input name="addFileButton" type="button" value="Upload"
+                     onclick="uploadImageOrFile('SuggestedCPATextArea', 'getFileCPA')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable">
+                  <textarea class="SuggestedCPATextArea" name="SuggestedCPATextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.SuggestedCPA" disabled></textarea>
+                  <br />
+                  <span class="ms-metadata">Define the required activities to perform corrective and preventive
+                     action.</span>
+                  <file-list-section id="suggestedCPAFiles" request-id="suggestedCPAFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Priority and Significance</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-disabled="!$ctrl.editable" id="selPriority" name="selPriority"
+                     ng-model="$ctrl.formModel.Priority"
+                     ng-options="x.value as x.value for x in $ctrl.Priorities | orderBy:'value'"
+                     ng-change="$ctrl.updateDueDateAndStartDate()" required>
+                     <option value="0">(None)</option>
+                  </select>
+
+                  <!-- <select ng-disabled="DisableInvestigatorform" id="selPriority" name="selPriority"
+                     ng-model="selPriority" ng-options="x.value for x in Priorities | orderBy:'value'"
+                     ng-change="updateDueDate(selPriority)" required>
+                     <option value="0">(None)</option>
+                  </select> -->
+                  <span class="ms-error"
+                     ng-show="incidentManagementForm.selPriority.$touched && incidentManagementForm.selPriority.$invalid">Priority
+                     is
+                     required.</span>
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Start Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="text" id="datepickerStartDate" name="datepickerStartDate"
+                     ng-model="$ctrl.formModel.StartDate" formatted-date-input ng-disabled="true" />
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Due Date</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="text" id="datepickerDueDate" name="datepickerDueDate"
+                     ng-model="$ctrl.formModel.TaskDueDate" formatted-date-input ng-disabled="!$ctrl.editable" />
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <h3>Incident and CPA Expenses</h3>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Is Financial Approval Required?</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <select ng-model="$ctrl.formModel.FinancialApprovalRequired" name="selIsFinanceApprovalRequired"
+                     ng-disabled="!$ctrl.editable" id="selIsFinanceApprovalRequired">
+                     <option value=""></option>
+                     <option value="Yes">Yes</option>
+                     <option value="No">No</option>
+                  </select>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Claim</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable" title="CostClaim"
+                     class="ms-input" ng-model="$ctrl.formModel.CostClaim" style="-ms-ime-mode: inactive;" type="text"
+                     size="11">
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Transport</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable"
+                     title="CostTransport" class="ms-input" ng-model="$ctrl.formModel.CostTransport"
+                     style="-ms-ime-mode: inactive;" type="text" size="11">
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Credits / Reimbursements</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable"
+                     title="CostConformance" class="ms-input" ng-model="$ctrl.formModel.CostConformance"
+                     style="-ms-ime-mode: inactive;" type="text" size="11">
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Direct / Damage Repair</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable"
+                     title="CostDirectDamage" ng-model="$ctrl.formModel.CostDirectDamage" class="ms-input"
+                     style="-ms-ime-mode: inactive;" type="text" size="11">
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Operational Upgrade / Improvements</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable"
+                     title="OperationalImprovements" ng-model="$ctrl.formModel.OperationalImprovements" class="ms-input"
+                     style="-ms-ime-mode: inactive;" type="text" size="11">
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Training</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable"
+                     title="CostTraining" ng-model="$ctrl.formModel.CostTraining" class="ms-input"
+                     style="-ms-ime-mode: inactive;" type="text" size="11">
+               </td>
+            </tr>
+
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Other</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <input type="number" ng-disabled="!$ctrl.editable && !$ctrl.financeFieldsEditable" title="CostOther"
+                     ng-model="$ctrl.formModel.CostOther" class="ms-input" style="-ms-ime-mode: inactive;" type="text"
+                     size="11">
+               </td>
+            </tr>
+            <tr ng-if="!$ctrl.editable">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Total Estimated Cost</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <label
+                     type="number">{{$ctrl.formModel.CostOther+$ctrl.formModel.CostDirectDamage+$ctrl.formModel.CostConformance+$ctrl.formModel.CostTransport+$ctrl.formModel.CostClaim+$ctrl.formModel.CostTraining+$ctrl.formModel.OperationalImprovements}}</label>
+               </td>
+            </tr>
+            <tr>
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Cost Details</label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="$ctrl.editable || $ctrl.financeFieldsEditable">
+                  <textarea class="CostDetailsTextArea" name="CostDetailsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.CostDetails"></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide detail information about the cost.</span>
+                  <br />
+                  <file-list-section id="costDetailsFiles" request-id="costDetailsFiles" mode="edit"></file-list-section>
+                  <!-- <input id="getCostDetails" type="file" />
+                  <br />
+                  <input name="addFileButton" type="button" value="Upload"
+                     onclick="uploadImageOrFile('CostDetailsTextArea', 'getCostDetails')" /> -->
+               </td>
+               <td width="70%" valign="top" class="ms-formbody" ng-if="!$ctrl.editable && !$ctrl.financeFieldsEditable">
+                  <textarea class="CostDetailsTextArea" name="CostDetailsTextArea" tinymce-editor
+                     ng-model="$ctrl.formModel.CostDetails" disabled></textarea>
+                  <br />
+                  <span class="ms-metadata">Provide detail information about the cost.</span>
+                  <file-list-section id="costDetailsFiles" request-id="costDetailsFiles" mode="view"></file-list-section>
+               </td>
+            </tr>
+
+            <tr ng-if="!$ctrl.editable">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Investigator </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <label>{{$ctrl.formModel.Investigator.Title}}</label>
+               </td>
+            </tr>
+            <tr ng-if="!$ctrl.editable">
+               <td width="30%" valign="top" class="ms-formlabel">
+                  <label>Date: </label>
+               </td>
+               <td width="70%" valign="top" class="ms-formbody">
+                  <label>{{ $ctrl.dateActionedText }}</label>
+               </td>
+            </tr>
+         </table>
+         <workflow-action-selector ng-if="$ctrl.editable" action-label="Investigator Action" assignee-label="Assign To"
+            actions="$ctrl.filteredNextStepOptions" selected-action="$ctrl.selectedAction"
+            assignee-id="$ctrl.formModel.AssignedToId" assignee="$ctrl.complexTypesModel.AssignedTo" required="true"
+            on-change="$ctrl.onNextActionChange(action, assignee)" disabled="!$ctrl.editable"
+            on-save-stage-form="$ctrl.saveStageForm(continueToNextStage)">
+         </workflow-action-selector>
+      </div>
+   </div>
+</fieldset><html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">ZP7AJ2WSTT3R-904016256-907</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">0edac0e1-1dcf-4b70-a75a-b09cec7f7994</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://dynaq.sharepoint.com/TeamSite/im/_layouts/15/DocIdRedir.aspx?ID=ZP7AJ2WSTT3R-904016256-907, ZP7AJ2WSTT3R-904016256-907</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
